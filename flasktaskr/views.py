@@ -2,7 +2,8 @@ import sqlite3
 from functools import wraps
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 # config
-app = Flask(__name__) app.config.from_object('_config')
+app = Flask(__name__)
+app.config.from_object('_config')
 # helper functions
 def connect_db():
   return sqlite3.connect(app.config['DATABASE'])
@@ -32,6 +33,7 @@ def login():
       error = 'Invalid Credentials. Please try again.'
       return render_template('login.html', error=error)
     else:
-      session['logged_in'] = True flash('Welcome!')
+      session['logged_in'] = True
+      flash('Welcome!')
       return redirect(url_for('tasks'))
   return render_template('login.html')
